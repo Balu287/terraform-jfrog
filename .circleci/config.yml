@@ -110,9 +110,21 @@ jobs:
             - terraform.plan
 
   apply:
-    <<: *apply_job
-  apply-with-approval:
-    <<: *apply_job
+    <<: *default_config
+    steps:
+      # - *restore_repo
+      # - *set_terraform_environment
+      # - *terraform_init
+      - run:
+          name: terraform apply
+          command: |
+            # source $BASH_ENV
+            # cd environments/$TERRAFORM_ENVIRONMENT
+            terraform apply -out=../../terraform.plan
+      - persist_to_workspace:
+          root: *working_directory
+          paths:
+            - terraform.apply
 
 workflows:
   version: 2
@@ -129,15 +141,9 @@ workflows:
           filters:
             branches:
               only: main
-      - apply-with-approval:
-          requires:
-            - approve
-          filters:
-            branches:
-              only: main
       - apply:
           requires:
             - plan
           filters:
             branches:
-              only: staging
+              only: main
