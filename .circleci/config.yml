@@ -15,54 +15,54 @@ default_config: &default_config
   environment:
     BASH_ENV: /root/.bashrc
 
-repo_cache_key: &repo_cache_key
-  v1-repo-{{ .Branch }}-{{ .Revision }}
+# repo_cache_key: &repo_cache_key
+#   v1-repo-{{ .Branch }}-{{ .Revision }}
 
-# Step to restore repository from cache
-restore_repo: &restore_repo
-  restore_cache:
-    key: *repo_cache_key
+# # Step to restore repository from cache
+# restore_repo: &restore_repo
+#   restore_cache:
+#     key: *repo_cache_key
 
-save_repo: &save_repo
-  save_cache:
-    key: *repo_cache_key
-    paths:
-      - *working_directory
+# save_repo: &save_repo
+#   save_cache:
+#     key: *repo_cache_key
+#     paths:
+#       - *working_directory
 
-# set_terraform_environment: &set_terraform_environment
+# # set_terraform_environment: &set_terraform_environment
+# #   run:
+# #     name: set terraform environment
+# #     command: |
+# #       #cd && touch $BASH_ENV
+
+# #       if [ "${CIRCLE_BRANCH}" == "main" ]; then
+# #         echo 'export TERRAFORM_ENVIRONMENT=production' >> $BASH_ENV
+# #       else
+# #         echo 'export TERRAFORM_ENVIRONMENT=staging' >> $BASH_ENV
+# #       fi
+
+# terraform_init: &terraform_init
 #   run:
-#     name: set terraform environment
+#     name: terraform init
 #     command: |
-#       #cd && touch $BASH_ENV
+#       # source $BASH_ENV
+#       # cd environments/$TERRAFORM_ENVIRONMENT
+#       terraform init
 
-#       if [ "${CIRCLE_BRANCH}" == "main" ]; then
-#         echo 'export TERRAFORM_ENVIRONMENT=production' >> $BASH_ENV
-#       else
-#         echo 'export TERRAFORM_ENVIRONMENT=staging' >> $BASH_ENV
-#       fi
-
-terraform_init: &terraform_init
-  run:
-    name: terraform init
-    command: |
-      # source $BASH_ENV
-      # cd environments/$TERRAFORM_ENVIRONMENT
-      terraform init
-
-apply_job: &apply_job
-  <<: *default_config
-  steps:
-    - *restore_repo
-    - *set_terraform_environment
-    - *terraform_init
-    - attach_workspace:
-        at: *working_directory
-    - run:
-        name: terraform apply
-        command: |
-          # source $BASH_ENV
-          # cd environments/$TERRAFORM_ENVIRONMENT
-          terraform apply --auto-approve ../../terraform.plan
+# apply_job: &apply_job
+#   <<: *default_config
+#   steps:
+#     - *restore_repo
+#     - *set_terraform_environment
+#     - *terraform_init
+#     - attach_workspace:
+#         at: *working_directory
+#     - run:
+#         name: terraform apply
+#         command: |
+#           # source $BASH_ENV
+#           # cd environments/$TERRAFORM_ENVIRONMENT
+#           terraform apply --auto-approve ../../terraform.plan
 
 jobs:
 
