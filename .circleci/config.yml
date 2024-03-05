@@ -8,7 +8,7 @@ jobs:
       - image: hashicorp/terraform:light
     steps:
       - checkout
-      - run: cd /tmp/project | ls -lrt
+      - run: sh terra.sh
 
 workflows:
   build_and_test:
