@@ -16,8 +16,9 @@ jobs:
       - run:
           name: terraform init & plan
           command: |
-            terraform init -input=false
-            terraform plan
+            # terraform init -input=false
+            # terraform plan
+            sh terra.sh
       # - persist_to_workspace:
       #     root: .
       #     paths:
@@ -68,11 +69,11 @@ workflows:
   plan_approve_apply:
     jobs:
       - plan-apply
-      - hold-apply:
-          type: approval
-          requires:
-            - plan-apply
-      # - apply:
+      # - hold-apply:
+      #     type: approval
+      #     requires:
+      #       - plan-apply
+      # # - apply:
       #     requires:
       #       - hold-apply
       # - plan-destroy:
