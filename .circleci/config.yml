@@ -9,8 +9,8 @@ working_directory: &working_directory
 jobs:
   plan-apply:
     # working_directory: /tmp/project
-    # docker:
-    #   - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
       - run:
@@ -24,8 +24,8 @@ jobs:
       #       - .
 
   apply:
-    # docker:
-    #   - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       # - attach_workspace:
       #     at: .
