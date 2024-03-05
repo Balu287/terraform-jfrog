@@ -12,10 +12,10 @@ jobs:
           command: |
             terraform init -input=false
             terraform plan
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+      # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - .
 
   apply:
     docker:
@@ -27,10 +27,10 @@ jobs:
           name: terraform
           command: |
             terraform apply -auto-approve tfapply
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+      # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - .
 
   # plan-destroy:
   #   docker:
