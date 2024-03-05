@@ -103,7 +103,7 @@ jobs:
           command: |
             # source $BASH_ENV
             # cd environments/$TERRAFORM_ENVIRONMENT
-            terraform plan
+            terraform plan -destroy
       # - persist_to_workspace:
       #     root: *working_directory
       #     paths:
