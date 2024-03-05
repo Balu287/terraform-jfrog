@@ -8,9 +8,9 @@ working_directory: &working_directory
   ~/example
 jobs:
   plan-apply:
-    # working_directory: /tmp/project
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    # # working_directory: /tmp/project
+    # docker:
+    #   - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
       - run:
@@ -23,20 +23,20 @@ jobs:
       #     paths:
       #       - .
 
-  apply:
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
-    steps:
-      # - attach_workspace:
-      #     at: .
-      - run:
-          name: terraform
-          command: |
-            terraform apply -auto-approve tfapply
-      # - persist_to_workspace:
-      #     root: .
-      #     paths:
-      #       - .
+  # apply:
+  #   docker:
+  #     - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+  #   steps:
+  #     # - attach_workspace:
+  #     #     at: .
+  #     - run:
+  #         name: terraform
+  #         command: |
+  #           terraform apply -auto-approve tfapply
+  #     # - persist_to_workspace:
+  #     #     root: .
+  #     #     paths:
+  #     #       - .
 
   # plan-destroy:
   #   docker:
@@ -72,9 +72,9 @@ workflows:
           type: approval
           requires:
             - plan-apply
-      - apply:
-          requires:
-            - hold-apply
+      # - apply:
+      #     requires:
+      #       - hold-apply
       # - plan-destroy:
       #     requires:
       #       - apply
