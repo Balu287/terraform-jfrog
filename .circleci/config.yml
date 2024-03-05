@@ -95,9 +95,9 @@ jobs:
   plan:
     <<: *default_config
     steps:
-      - *restore_repo
-      - *set_terraform_environment
-      - *terraform_init
+      # - *restore_repo
+      # - *set_terraform_environment
+      # - *terraform_init
       - run:
           name: terraform plan
           command: |
