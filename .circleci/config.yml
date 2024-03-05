@@ -103,7 +103,7 @@ jobs:
           command: |
             # source $BASH_ENV
             # cd environments/$TERRAFORM_ENVIRONMENT
-            terraform plan -out=../../terraform.plan
+            terraform plan
       - persist_to_workspace:
           root: *working_directory
           paths:
@@ -120,7 +120,7 @@ jobs:
           command: |
             # source $BASH_ENV
             # cd environments/$TERRAFORM_ENVIRONMENT
-            terraform apply -out=../../terraform.plan
+            terraform apply
       - persist_to_workspace:
           root: *working_directory
           paths:
