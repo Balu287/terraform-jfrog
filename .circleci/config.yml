@@ -1,10 +1,16 @@
 version: 2
+references:
 
+base_image: &base_image
+  hashicorp/terraform:light
+
+working_directory: &working_directory
+  ~/example
 jobs:
   plan-apply:
-    working_directory: /tmp/project
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    # working_directory: /tmp/project
+    # docker:
+    #   - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
       - run:
@@ -18,11 +24,11 @@ jobs:
       #       - .
 
   apply:
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    # docker:
+    #   - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
-      - attach_workspace:
-          at: .
+      # - attach_workspace:
+      #     at: .
       - run:
           name: terraform
           command: |
