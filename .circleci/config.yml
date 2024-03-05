@@ -104,10 +104,10 @@ jobs:
             # source $BASH_ENV
             # cd environments/$TERRAFORM_ENVIRONMENT
             terraform plan
-      - persist_to_workspace:
-          root: *working_directory
-          paths:
-            - terraform.plan
+      # - persist_to_workspace:
+      #     root: *working_directory
+      #     paths:
+      #       - terraform.plan
 
   apply:
     <<: *default_config
@@ -121,10 +121,10 @@ jobs:
             # source $BASH_ENV
             # cd environments/$TERRAFORM_ENVIRONMENT
             terraform apply
-      - persist_to_workspace:
-          root: *working_directory
-          paths:
-            - terraform.apply
+      # - persist_to_workspace:
+      #     root: *working_directory
+      #     paths:
+      #       - terraform.apply
 
 workflows:
   version: 2
