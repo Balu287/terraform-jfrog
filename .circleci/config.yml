@@ -8,12 +8,12 @@ base_image: &base_image
 working_directory: &working_directory
   ~/example
 
-default_config: &default_config
-  docker:
-    - image: *base_image
-  working_directory: *working_directory
-  environment:
-    BASH_ENV: /root/.bashrc
+# default_config: &default_config
+#   docker:
+#     - image: *base_image
+#   working_directory: *working_directory
+#   environment:
+#     BASH_ENV: /root/.bashrc
 
 # repo_cache_key: &repo_cache_key
 #   v1-repo-{{ .Branch }}-{{ .Revision }}
@@ -67,7 +67,7 @@ default_config: &default_config
 jobs:
 
   build:
-    <<: *default_config
+    # <<: *default_config
     steps:
       - checkout
       # - *set_terraform_environment
@@ -93,7 +93,7 @@ jobs:
       # - *save_repo
 
   plan:
-    <<: *default_config
+    # <<: *default_config
     steps:
       # - *restore_repo
       # - *set_terraform_environment
@@ -103,14 +103,14 @@ jobs:
           command: |
             # source $BASH_ENV
             # cd environments/$TERRAFORM_ENVIRONMENT
-            terraform plan -destroy
+            terraform plan
       # - persist_to_workspace:
       #     root: *working_directory
       #     paths:
       #       - terraform.plan
 
   apply:
-    <<: *default_config
+    # <<: *default_config
     steps:
       # - *restore_repo
       # - *set_terraform_environment
@@ -131,19 +131,5 @@ workflows:
   build_plan_approve_apply:
     jobs:
       - build
-      - plan:
-          requires:
-            - build
-      - approve:
-          type: approval
-          requires:
-            - plan
-          filters:
-            branches:
-              only: main
-      - apply:
-          requires:
-            - plan
-          filters:
-            branches:
-              only: main
+      - plan
+      - apply
