@@ -14,5 +14,5 @@ workflows:
   build_and_test:
     jobs:
       - build
-  context:
+context:
       - jfrog-context
