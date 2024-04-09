@@ -54,5 +54,5 @@ workflows: # a single workflow with a single job called build
           context: Testing-Env-Vars
           filters:
               branches:
-                only: prtests
+                only: main
 
