@@ -42,6 +42,10 @@ jobs: # basic units of work in a run
               pr_comment_url=$(echo $pr_response | jq -r ".[]._links.comments.href")
               echo ${pr_comment_url}
             fi
+            curl --location --request POST "$pr_comment_url" \
+            -u $GH_USER:$GH_TOKEN \
+            --header 'Content-Type: application/json' \
+            --data-raw '{"body": "This would be the data to add"}'
 
 workflows: # a single workflow with a single job called build
   build:
