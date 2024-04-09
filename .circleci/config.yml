@@ -44,9 +44,7 @@ jobs: # basic units of work in a run
             curl --location --request POST "$pr_comment_url" \
             -u $GH_USER:$GH_TOKEN \
             --header 'Content-Type: application/json' \
-            --data-raw {
-           "body": "This would be the data to add"
-            }
+            --data-raw '{"body": "This would be the data to add"}'
 
 workflows: # a single workflow with a single job called build
   build:
